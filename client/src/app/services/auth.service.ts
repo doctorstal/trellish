@@ -40,4 +40,7 @@ export class AuthService {
     return this.http.post(`${environment.apiUrl}/users/register`, user);
   }
 
+  logout(): void {
+    localStorage.removeItem('user');
+  }
 }

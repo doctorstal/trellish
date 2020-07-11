@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Card} from '../../../models/card.model';
 import {CardsService} from "../../../services/cards.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-column',
@@ -13,12 +14,13 @@ export class ColumnComponent implements OnInit {
   @Input()
   name: string;
 
-  cards: Card[];
+  cards: Card[] = [];
 
   constructor(
-    private cardsService: CardsService
+    private cardsService: CardsService,
+    private router: Router
   ) {
-    cardsService.cards.subscribe(value => this.cards = value);
+    // cardsService.cards.subscribe(value => this.cards = value);
   }
 
   ngOnInit(): void {
@@ -27,7 +29,8 @@ export class ColumnComponent implements OnInit {
   addCard(): void {
     const card = new Card();
     card.column = this.name;
-    this.cardsService.addCard(card);
+    this.cards.push(card);
+    // this.cardsService.addCard(card);
   }
 
 }

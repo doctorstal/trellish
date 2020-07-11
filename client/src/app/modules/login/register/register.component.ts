@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
+import {AuthService} from "../../../services/auth.service";
 
-// import { AccountService, AlertService } from '@app/_services';
 
 @Component({ templateUrl: 'register.component.html' })
 export class RegisterComponent implements OnInit {
@@ -15,8 +15,7 @@ export class RegisterComponent implements OnInit {
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        // private accountService: AccountService,
-        // private alertService: AlertService
+        private authService: AuthService,
     ) { }
 
     ngOnInit() {
@@ -34,8 +33,6 @@ export class RegisterComponent implements OnInit {
     onSubmit() {
         this.submitted = true;
 
-        // reset alerts on submit
-        // this.alertService.clear();
 
         // stop here if form is invalid
         if (this.form.invalid) {
@@ -43,16 +40,14 @@ export class RegisterComponent implements OnInit {
         }
 
         this.loading = true;
-        // this.accountService.register(this.form.value)
-        //     .pipe(first())
-        //     .subscribe(
-        //         data => {
-        //             this.alertService.success('Registration successful', { keepAfterRouteChange: true });
-        //             this.router.navigate(['../login'], { relativeTo: this.route });
-        //         },
-        //         error => {
-        //             this.alertService.error(error);
-        //             this.loading = false;
-        //         });
+        this.authService.register(this.form.value)
+            .pipe(first())
+            .subscribe(
+                data => {
+                    this.router.navigate(['../login'], { relativeTo: this.route });
+                },
+                error => {
+                    this.loading = false;
+                });
     }
 }
