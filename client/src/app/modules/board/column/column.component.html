@@ -1,7 +1,5 @@
 <div>
   <p>{{ title }}</p>
-  <app-card *ngFor="let card of cards" [card]=card></app-card>
+  <app-card *ngFor="let card of cards | column:name" [card]=card></app-card>
   <button (click)="addCard()" type="button">Add Card</button>
-
-  <p *ngFor="let card of cards | column:name">{{ card.title }}</p>
 </div>

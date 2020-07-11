@@ -7,7 +7,8 @@ import {Card} from './models/card.model';
 export class ColumnPipe implements PipeTransform {
 
   transform(cards: Card[], column: string): unknown {
-    console.log('wow');
+    console.log(column, cards);
+    console.log(cards.filter(c => c.column === column));
     return cards.filter(c => c.column === column);
   }
 

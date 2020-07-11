@@ -11,13 +11,16 @@ export class CardsService {
   public cards: Observable<Card[]>;
 
   constructor() {
-    this.cardsSubject = new BehaviorSubject<Card[]>(JSON.parse(localStorage.getItem('cards')));
+    this.cardsSubject = new BehaviorSubject<Card[]>(JSON.parse(localStorage.getItem('cards')) || []);
     this.cards = this.cardsSubject.asObservable();
   }
 
   addCard(card: Card): void {
     const cards = this.cardsSubject.value.concat();
     cards.push(card);
+    this.saveCards(cards);
+  }
+  saveCards(cards: Card[]): void {
     localStorage.setItem('cards', JSON.stringify(cards));
     this.cardsSubject.next(cards);
   }

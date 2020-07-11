@@ -11,7 +11,8 @@ export class CardComponent implements OnInit {
   card: Card;
   edit: boolean = true;
 
-  constructor() { }
+  constructor(
+  ) { }
 
   ngOnInit(): void {
   }
