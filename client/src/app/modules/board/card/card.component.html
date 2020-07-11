@@ -1,0 +1,15 @@
+<div class="card">
+  <ng-container *ngIf="!edit">
+    <p class="title">{{ card.title }}</p>
+    <p class="description">{{ card.description }}</p>
+    <button (click)="edit=true">Edit</button>
+  </ng-container>
+  <ng-container *ngIf="edit">
+    <p>
+      <input placeholder="title" [value]="card.title || ''" #titleInput></p>
+    <p>
+      <textarea placeholder="description" #descriptionInput>{{ card.description }}</textarea>
+    </p>
+    <button (click)="doEdit(titleInput.value, descriptionInput.value)">Done</button>
+  </ng-container>
+</div>
